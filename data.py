@@ -181,10 +181,10 @@ class ProteinCache:
         self.folder = Path(folder)
         mf = self.folder / "manifest.json"
         if not mf.exists():
-            raise FileNotFoundError(f"{mf} missing: run `python -m freqdti.esm_cache` first")
+            raise FileNotFoundError(f"{mf} missing: run `python -m FABRIC.esm_cache` first")
         self.manifest = json.loads(mf.read_text(encoding="utf-8"))
         if self.manifest.get("source") != "esm2":
-            raise ValueError("Cache is not real ESM-2; run `python -m freqdti.esm_cache` first")
+            raise ValueError("Cache is not real ESM-2; run `python -m FABRIC.esm_cache` first")
         self.dim = int(self.manifest["embedding_dim"])
         self.store = np.float32 if self.manifest.get("dtype") == "float32" else np.float16
         self.mem, self.max_bytes, self.bytes = OrderedDict(), int(max_bytes), 0
